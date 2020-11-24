@@ -1,0 +1,28 @@
+{
+  "name": "MKR_express_crud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Syhwh/MKR_express_crud.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Syhwh/MKR_express_crud/issues"
+  },
+  "homepage": "https://github.com/Syhwh/MKR_express_crud#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.10.15",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.6"
+  }
+}
