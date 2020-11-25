@@ -1,0 +1,16 @@
+<div>
+  <ul>
+    {{#each tasks }}
+
+    <li> {{ title}} ---- {{description}}
+      <input type="checkbox" checked={{status}}>
+      <form action="/tasks/{{_id}}?_method=DELETE" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+
+    {{/each}}
+  </ul>
+
+</div>
