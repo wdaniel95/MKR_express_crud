@@ -23,9 +23,10 @@ app.set('view engine', '.hbs');
 
 
 // middlewares
-app.use(morgan('dev'))
-app.use(express.urlencoded({ extended: true }))
+app.use(morgan('dev'));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+
 // routes
 app.use(routes);
 

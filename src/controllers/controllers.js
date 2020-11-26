@@ -7,8 +7,7 @@ const home = (req, res) => {
 
 const getTasks = async (req, res) => {
   const tasks = await Task.find().lean();
-  console.log(tasks)
-  res.render('tasksView', { tasks })
+  res.render('tasksView', { tasks });
 }
 
 const createTask = async (req, res) => {
@@ -19,13 +18,27 @@ const createTask = async (req, res) => {
 
 
 const deleteTask = async (req, res) => {
-  const { id } = req.params
-  await Task.findByIdAndDelete(id)
+  const { id } = req.params;
+  await Task.findByIdAndDelete(id);
   res.redirect('/tasks');
 }
 
-// TODO: List one task - edit One task -  change status
+const getTask = async (req, res) => {
+  const { id } = req.params;
+  const task = await Task.findById(id);
+  res.render('editForm', task);
+}
+
+
+const editTask = async (req, res) => {
+  const { title, description } = req.body
+  const { id } = req.params;
+  await Task.findByIdAndUpdate(id, { title, description });
+  res.redirect('/tasks');
+}
+
 
 module.exports = {
-  home, getTasks, createTask, deleteTask
+
+  home, getTasks, createTask, deleteTask, getTask, editTask
 }
