@@ -1,9 +1,13 @@
 const express = require('express');
-const routes = require('./routes/routes');
-const path = require('path');
 const hbs = require('express-handlebars');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
+
+const path = require('path');
+
+const routes = require('./routes/routes');
+const userRoutes = require('./routes/userRouter');
 
 const app = express();
 
@@ -26,10 +30,11 @@ app.set('view engine', '.hbs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(cookieParser());
 
 // routes
 app.use(routes);
-
+app.use(userRoutes);
 
 
 

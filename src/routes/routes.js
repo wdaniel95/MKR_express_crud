@@ -1,13 +1,13 @@
 const { Router } = require('express');
 const tasks = Router();
 
-const { home, getTasks, createTask, deleteTask, getTask, editTask } = require('../controllers/controllers');
+const { home, getTasks, createTask, deleteTask, getTask, editTask, isAuth } = require('../controllers/tasksControllers');
 
 
 
 tasks.get('/', home);
 
-tasks.get('/tasks', getTasks);
+tasks.get('/tasks', isAuth, getTasks);
 
 tasks.get('/tasks/:id', getTask);
 
