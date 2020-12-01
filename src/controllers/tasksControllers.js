@@ -1,5 +1,5 @@
 const Task = require('../models/taskModel');
-const tasks = require('../routes/routes');
+const tasks = require('../routes/tasksRouter');
 
 
 const isAuth = (req, res, next) => {
@@ -19,7 +19,7 @@ const home = (req, res) => {
 
 const getTasks = async (req, res) => {
   const tasks = await Task.find().lean();
-  res.render('tasksView', { tasks });
+  res.render('tasks/tasksView', { tasks });
 }
 
 const createTask = async (req, res) => {
@@ -38,7 +38,7 @@ const deleteTask = async (req, res) => {
 const getTask = async (req, res) => {
   const { id } = req.params;
   const task = await Task.findById(id);
-  res.render('editForm', task);
+  res.render('tasks/editForm', task);
 }
 
 

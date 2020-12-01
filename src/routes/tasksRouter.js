@@ -7,7 +7,7 @@ const { home, getTasks, createTask, deleteTask, getTask, editTask, isAuth } = re
 
 tasks.get('/', home);
 
-tasks.get('/tasks', isAuth, getTasks);
+tasks.get('/tasks', getTasks);
 
 tasks.get('/tasks/:id', getTask);
 

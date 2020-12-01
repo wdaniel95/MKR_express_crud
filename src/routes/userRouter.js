@@ -10,7 +10,7 @@ userRouter.get('/signup', signupUser);
 
 userRouter.get('/login', loginUser);
 
-userRouter.post('/users', createUser);
+userRouter.post('/users/signup', createUser);
 
 userRouter.post('/users/login', getUser);
 

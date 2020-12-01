@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 
 const path = require('path');
 
-const routes = require('./routes/routes');
+const tasksRoutes = require('./routes/tasksRouter');
 const userRoutes = require('./routes/userRouter');
 
 const app = express();
@@ -33,7 +33,7 @@ app.use(methodOverride('_method'));
 app.use(cookieParser());
 
 // routes
-app.use(routes);
+app.use(tasksRoutes);
 app.use(userRoutes);
 
 
