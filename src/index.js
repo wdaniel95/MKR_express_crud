@@ -3,6 +3,7 @@ const hbs = require('express-handlebars');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 const path = require('path');
 
@@ -31,6 +32,12 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
+app.use(session({
+  secret: 'secretWord',
+  cookie: { maxAge: 1000 * 60 }
+}))
+
+
 
 // routes
 app.use(tasksRoutes);

@@ -40,10 +40,12 @@ const getUser = async (req, res) => {
   if (user) {
     const correctPassword = await user.passwordMatch(password)
     if (correctPassword) {
+      req.session.userId = user._id
       res.redirect('/tasks')
     }
+    res.redirect('/login')
   } else {
-    res.send('/login')
+    res.redirect('/login')
   }
 
 
@@ -57,16 +59,6 @@ const getUser = async (req, res) => {
 //   const hash = await bcrypt.hash(password, salt);
 //   return hash
 // }
-
-// TODO: encriptar password utilizando bcrypt
-//2. cuando guardo un usuaro nuevo el password de estar encriptado
-//3. cuando logeo un user debo desencriptar el password
-//* bono crear un middleware que oculte las rutas solo para usuaarios logeados
-// cookie-session ->
-
-
-
-
 
 
 module.exports = { createUser, loginUser, signupUser, getUser }

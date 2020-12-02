@@ -2,22 +2,13 @@ const Task = require('../models/taskModel');
 const tasks = require('../routes/tasksRouter');
 
 
-const isAuth = (req, res, next) => {
-  const { auth } = req.cookies
-  if (auth === 'false') {
-    res.redirect('/')
-  }
-  next()
-}
-
-
 const home = (req, res) => {
-  console.log(req.cookies)
-  res.cookie('auth', false);
+  console.log("req.session.userId", req.session.userId)
   res.render('home');
 }
 
 const getTasks = async (req, res) => {
+  console.log(req.session.userId)
   const tasks = await Task.find().lean();
   res.render('tasks/tasksView', { tasks });
 }
@@ -52,5 +43,5 @@ const editTask = async (req, res) => {
 
 module.exports = {
 
-  home, getTasks, createTask, deleteTask, getTask, editTask, isAuth
+  home, getTasks, createTask, deleteTask, getTask, editTask,
 }
