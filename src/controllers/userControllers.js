@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-
+const bcrypt = require('bcrypt');
 
 const signupUser = (req, res) => {
   res.render('user/signupForm')
@@ -11,14 +11,15 @@ const loginUser = (req, res) => {
 
 
 const createUser = async (req, res) => {
-  console.log(req.body)
-  const { userName, email, password } = req.body;
-  const user = new User({ userName, email, password });
+
   try {
+    const { userName, email, password } = req.body;
+    console.log('password inside cotroller', password)
+    const user = new User({ userName, email, password });
+    // user.password = await encryptePassword(password);
     await user.save();
     res.send('user created')
   } catch (error) {
-    // send message
     res.redirect('/signup')
     console.log(error)
   }
@@ -27,13 +28,35 @@ const createUser = async (req, res) => {
 const getUser = async (req, res) => {
   const { email, password } = req.body
 
-  const user = await User.find({ email });
+  const user = await User.findOne({ email });
 
-  console.log(user)
-  res.send(user)
+  /**clg
+   * verify password method 1
+   */
+  // const userPassword = user[0].password;
+  // const correctPassword = await bcrypt.compare(password, userPassword);
+
+
+  if (user) {
+    const correctPassword = await user.passwordMatch(password)
+    if (correctPassword) {
+      res.redirect('/tasks')
+    }
+  } else {
+    res.send('/login')
+  }
 
 
 }
+
+/**
+ * encrypt password method 1
+ */
+// const encryptePassword = async (password) => {
+//   const salt = await bcrypt.genSalt(10);
+//   const hash = await bcrypt.hash(password, salt);
+//   return hash
+// }
 
 // TODO: encriptar password utilizando bcrypt
 //2. cuando guardo un usuaro nuevo el password de estar encriptado
