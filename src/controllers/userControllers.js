@@ -41,14 +41,20 @@ const getUser = async (req, res) => {
     const correctPassword = await user.passwordMatch(password)
     if (correctPassword) {
       req.session.userId = user._id
-      res.redirect('/tasks')
+      res.redirect('/tasks');
     }
-    res.redirect('/login')
+    res.redirect('/login');
   } else {
-    res.redirect('/login')
+    res.redirect('/login');
   }
 
 
+}
+
+
+const logoutUser = (req, res) => {
+  req.session.userId = null
+  res.redirect('/login')
 }
 
 /**
@@ -61,4 +67,4 @@ const getUser = async (req, res) => {
 // }
 
 
-module.exports = { createUser, loginUser, signupUser, getUser }
+module.exports = { createUser, loginUser, signupUser, getUser, logoutUser }

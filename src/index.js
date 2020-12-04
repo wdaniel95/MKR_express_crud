@@ -1,15 +1,18 @@
+const dotenv = require('dotenv')
 const express = require('express');
 const hbs = require('express-handlebars');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 const path = require('path');
 
 const tasksRoutes = require('./routes/tasksRouter');
 const userRoutes = require('./routes/userRouter');
 
+dotenv.config();
 const app = express();
 
 // connect db
@@ -33,17 +36,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(session({
-  secret: 'secretWord',
-  cookie: { maxAge: 1000 * 60 }
-}))
+  secret: process.env.SECRET_WORD,
+  cookie: { maxAge: 1000 * 60 * 60 }
+}));
+app.use(flash());
 
-
+//  global variables
+app.use((req, res, next) => {
+  res.locals.user = req.session.userId
+  res.locals.success = req.flash('success')
+  next();
+})
 
 // routes
 app.use(tasksRoutes);
 app.use(userRoutes);
 
-
+const PORT = process.env.PORT || 3000;
 
 // server
-app.listen(3000, () => console.log('Server running in port 3000'))
+app.listen(PORT, () => console.log(`Server running in port ${PORT}`))
